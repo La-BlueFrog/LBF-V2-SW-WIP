@@ -1,0 +1,7 @@
+ROBOT DEMO
+==========
+
+Attempt to drive Pololu MC33926 Motor Driver Board on Rover5 Chassis.
+PWM on Extension header positions 9 and 10
+
+WORK IN PROGRESS - NOT COMPLETE

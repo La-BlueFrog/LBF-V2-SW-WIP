@@ -1,0 +1,82 @@
+
+ReadMe file - 
+
+
+================================
+FILE STRUCTURE:
+
+/<La BluFrog V2 root directory>
+
+	-- /libraries
+		-- /BlueFrogV2-Lib
+		   # Board init and controls  -  La BlueFrog specific
+		   # Adaptation Layers for Middlewares (USBD, FatFS, emWin)
+		-- /CMSIS
+		   # ARM Cortex-M3 libs  -  supplied by ARM/ST
+		-- /STM32L1xx_HAL_Driver
+		   # Hardware Abstraction Layer for config of STM32 on-chip periphs 
+		   # Supplied by ST as part of "STM32 C
+		-- /STM32_USB-Device_Library
+		   # USB2.0 (full speed) device driver -from ST
+		-- /FatFS_Lib
+		   # FAT File System  - from ST, derived from ChaN's open-source FatFS
+		-- /STemWin_Lib
+		   # Rich Graphics Library - from ST under licence from Segger (emWin)
+		-- /Sensor_APIs
+		   # Vendor-provided sensor APIs (with some adaptation) 
+                     Only LSM6DS3 for now. Mostly the .h files are interesting 
+                     (register definitions)
+
+	-- /projects
+		-- /Project-A
+			-- /inc
+				xxx.h
+			-- /src
+				xxx.c
+			-- Makefile
+			   # Invoked by make statement to compile/link/load project,
+			   # type make -help for usage options
+			-- /obj 
+			   # automagically created and filled in when building project with 'make'  
+		-- /Project-B
+			-- ..........
+		-- /Project-A
+			-- ..........
+		-- /STARTUP
+			-- startup_stm32l151xc.s
+					  # startup file called before main, 
+					  # STM32L1-specific  -  supplied by ST
+			-- STM32151XC_FLASH.ld
+					  # STM32L1-specific  -  supplied by ST
+					stm32_flash.ld
+					  # linker script for STM32L151RC
+	-- /documentation
+			-- LBF-V2_SW_Organization.pdf
+			   # Organization of the provided software
+			-- Low-level_API_Contents.pdf
+			   # Description of basic API provided to use La BlueFrog
+			-- LBF-V2_Board_HW.pdf
+			   # Outline of board hardware and inter-chip connections
+			-- BlueFrog_gcc_dev.pdf
+			   # Guidelines to use La BlueFrog with gcc under Linux 
+		-- /Middleware_APIs
+		   # programming interfaces for the FAT File Sysem, the STemWin
+		   # Gfx library and the STM32 HAL Cube peripheral drivers
+		-- /datasheets
+		   # datasheets and user manuals of ICs used on La BlueFrog
+
+
+
+=================================
+
+To write an application, user essentially has to first call within main() a few board init and optional middleware initialization functions (see /PROJECT_TEMPLATE under /projects as well as examples provided). This will configures the STM32 clocks, IOs, etc. and define a number of abstraction layers to use the IC on-board. User can then write its application code, relying on functions/macros defined in BlueFrogV1-Lib for easier (higher level) control of on-board chips, or in the Middleware provided.
+
+See examples provided under /projects.
+The example projects provided can be simply built by "make build" and programmed into the STM32 by "make run"
+
+================================
+
+Regarding development chains for the STM32, there are a number of options, with or without IDE. Without IDE, development can be done with gcc and Makefiles under Linux. With IDE, there are several commercial options, but an interesting free option (under Eclipse, available fro windows and for Linux) is the new "STM32 Workbench" provided by AC6 in partnership with ST-- see http://www.openstm32.org
+
+
+

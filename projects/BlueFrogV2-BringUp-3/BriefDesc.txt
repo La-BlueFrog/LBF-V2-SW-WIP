@@ -1,0 +1,13 @@
+USB Device Test (Mass Storage)
+=============================
+
+Initialize board
+
+Configure board as Mass Storage Device (8MB)
+USB Device Stack runs on STM32, Physical Storage space is Data Flash
+
+La BlueFrog gets recognized by PC as USB Mass Storage drive.
+
+**Limitation**: if Flash is not empty and not FAT formatted, PC OS reports abnormal disk behavior.
+
+If Flash is empty/erased, then PC proposes to format the drive (FAT16)

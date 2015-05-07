@@ -1,0 +1,9 @@
+BlueTooth Low Energy Test, HOST
+===============================
+
+Initialize Module, Enable USB
+With BTLE enabled in user configuration file,
+ LBF_Board_Selective_Inits() will include download by STM32 of specified executable into BTLE module.
+
+QUICK AND DIRTY IMPLEMENTATION so far
+Just shows the link is working

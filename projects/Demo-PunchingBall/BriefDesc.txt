@@ -1,0 +1,18 @@
+PUNCHING BALL DEMO
+==================
+
+Objective is to "measure" hit received by punching ball
+by integrating acceleration of punching ball
+from hit (1st non-negligible value) to start of deceleration (<0 value).
+Then report result graphically and compare to previous records.
+
+----
+
+Demo enabled by <TBD>
+Accelerometer is enabled at max sampling rate
+Measure initial acceleration vector (gravity)
+FIFO set to store <20? TBD> samples
+
+FIFO set in continuous-to-FIFO mode with trigger = significant motion
+So, once full, FIFO will contain the 20 acceleration values seens after punching ball has started to move. 
+===> integrate the acceleration values as long as they're positive
