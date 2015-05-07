@@ -51,19 +51,29 @@ FILE STRUCTURE:
 					stm32_flash.ld
 					  # linker script for STM32L151RC
 	-- /documentation
-			-- LBF-V2_SW_Organization.pdf
-			   # Organization of the provided software
-			-- Low-level_API_Contents.pdf
-			   # Description of basic API provided to use La BlueFrog
-			-- LBF-V2_Board_HW.pdf
-			   # Outline of board hardware and inter-chip connections
-			-- BlueFrog_gcc_dev.pdf
-			   # Guidelines to use La BlueFrog with gcc under Linux 
-		-- /Middleware_APIs
-		   # programming interfaces for the FAT File Sysem, the STemWin
-		   # Gfx library and the STM32 HAL Cube peripheral drivers
+		-- LBF-V2_SW_Organization.pdf
+		   # Organization of the provided software
+		-- Using_Programmation_Connector.pdf
+		   # Guide for connecting the ST-Link V2 programmer/debugger
+		-- LBF-V2_Board_HW.pdf
+		   # Outline of board hardware and inter-chip connections
+		-- BlueFrog_gcc_dev.pdf
+		   # Guidelines to use La BlueFrog with gcc under Linux 
+		-- /APIs
+			-- /HAL (Cube) for STM32 On-Chip Peripherals
+			-- /FatFS_File_System_doc
+			-- /STemWin Gfx Library
+		 	   # programming interfaces for the FAT File Sysem, the STemWin
+		 	   # Gfx library and the STM32 HAL Cube peripheral drivers,
+			-- La-BlueFrog_API.pdf
+		 	  # Basic functions developped for easy usage of La BlueFrog
 		-- /datasheets
 		   # datasheets and user manuals of ICs used on La BlueFrog
+	-- /btle_firmwares
+			-- *.bin
+			   # Executables for the BlueTooth Low-Energy module (relies 
+   			   # on an embedded Cortex-M0). Can be used to implement 
+   			   # specific 'profiles' when BTLE is enabled
 
 
 
