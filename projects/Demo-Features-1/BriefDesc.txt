@@ -1,0 +1,30 @@
+Demonstration of some features of the module
+===========================================
+
+1) Splash Screen
+   Decode image SPLASH.SPE (.SPE for image with a Special role...) which is actually a BMP file
+   + Welcome message
+
+ Upon detection of object in front of proximity Detector, switch to:
+
+2) "Free up" the frog : 
+   Shift frog position according to accelerometer data
+   The shift is done by changing the correspondance between memory addresses and
+   position on the screen in the OLED
+
+ Upon detection of skake (inversion of Z acceleration vector):
+
+3) Turn frog schematic into actual frog :-)
+   In fact simply display bitmap picture FROG.SPE (which has to be on the file system)
+
+Upon inclination of screen:
+
+4) Cycle through .BMP pictures stored on Flash File System, forward or backward depending
+   on sign of Y acceleration vector
+
+Upon pressing one of the side-push buttons (ignored while an image is being decoded):
+
+5) Display an evaluation of the distance to any object placed in front of the proximity detector
+
+Upon turning module upside down for a while (detected by Z accel vector):
+Back to step 1
