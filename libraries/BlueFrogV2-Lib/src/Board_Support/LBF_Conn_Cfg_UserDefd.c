@@ -22,7 +22,7 @@
 #include "User_Configuration.h"
 #include "LBF_UART3_Init.h"
 #include "LBF_I2C1_Init.h"
-#include "LBF_PWM4_Ch34_Init.h"
+
 
 /*******************************************************************************
 * Description  : Configures GPIO connected to header pins 
@@ -155,6 +155,52 @@ GPIO_InitTypeDef GPIO_InitStructPos3;
  #endif
   HAL_GPIO_Init(CONN_POS3_PORT, &GPIO_InitStructPos3); 
 #endif
+
+
+// ==== Set up(POS2 and POS3 only) as Timer Outputs if required    ============
+// ====   and configure relevant pins                              ============ 
+// ====	   This uses parameters defined in User_Configuration.h :  ============
+
+
+// ==== Position 2    (Header Pos.#2 connects to STM32 pin PA6)
+
+#if defined(POS2_IS_TIM3_CH1)  || defined(POS2_IS_TIM10_CH1) 
+GPIO_InitTypeDef GPIO_InitStructPos2;
+
+ #if defined(POS2_IS_TIM3_CH1)  // Timer3, Channel1 (for ex. PWM) on Posn 2 
+    GPIO_InitStructPos2.Alternate = GPIO_AF2_TIM3;
+ #endif 
+ #if defined(POS2_IS_TIM10_CH1)  // Timer10, Channel1 (for ex. PWM) on Posn 2 
+    GPIO_InitStructPos2.Alternate = GPIO_AF3_TIM10;
+ #endif 
+
+    GPIO_InitStructPos2.Pin = CONN_POS2_PIN;
+    GPIO_InitStructPos2.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructPos2.Pull = GPIO_NOPULL;
+    GPIO_InitStructPos2.Speed = GPIO_SPEED_LOW;
+    HAL_GPIO_Init(CONN_POS2_PORT, &GPIO_InitStructPos2);
+#endif  // end (POS2_IS_TIM3_CH1 || POS3_IS_TIM3_CH2)
+
+
+// ==== Position 3    (Header Pos.#3 connects to STM32 pin PA7)
+
+#if defined(POS3_IS_TIM3_CH2)  || defined(POS3_IS_TIM11_CH1) 
+GPIO_InitTypeDef GPIO_InitStructPos3;
+
+ #if defined(POS3_IS_TIM3_CH2)  // Timer3, Channel2 (for ex. PWM) on Posn 3 
+    GPIO_InitStructPos3.Alternate = GPIO_AF2_TIM3;
+ #endif 
+ #if defined(POS2_IS_TIM11_CH1)  // Timer11, Channel1 (for ex. PWM) on Posn 3
+    GPIO_InitStructPos3.Alternate = GPIO_AF3_TIM11;
+ #endif 
+
+    GPIO_InitStructPos3.Pin = CONN_POS3_PIN;
+    GPIO_InitStructPos3.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructPos3.Pull = GPIO_NOPULL;
+    GPIO_InitStructPos3.Speed = GPIO_SPEED_LOW;
+    HAL_GPIO_Init(CONN_POS3_PORT, &GPIO_InitStructPos3);
+#endif  // end (POS3_IS_TIM3_CH2)  || (POS3_IS_TIM11_CH1) 
+
 
 
 // ***************************************************************************
@@ -302,66 +348,58 @@ GPIO_InitTypeDef GPIO_InitStructPos7;
 
 
 // ***************************************************************************
-// POSITIONS 9 and 10 : I2C1 or PWM (Timer4, Channels 3 and 4)  or GPIO or ...
+// POSITIONS 9 and 10 : I2C1 or TIMER4 (Channels 3 and 4 - e.g. PWM)  or GPIO or ...
 // ***************************************************************************
 
 // ==== Set up as I2C1 if required, and configure relevant pins   ============
 // ====	   This uses parameters defined in User_Configuration.h   ============
 
 #if defined(POS9_IS_I2C1_SCL) || defined(POS10_IS_I2C1_SDA) 
-GPIO_InitTypeDef GPIO_InitStruct;
+GPIO_InitTypeDef GPIO_InitStructPos910;
 
     __I2C1_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = 0; 
+    GPIO_InitStructPos910.Pin = 0; 
 #ifdef POS9_IS_I2C1_SCL
-    GPIO_InitStruct.Pin |= I2C1_SCL_PIN;
+    GPIO_InitStructPos910.Pin |= I2C1_SCL_PIN;
 #endif
 #ifdef POS10_IS_I2C1_SDA
-    GPIO_InitStruct.Pin |= I2C1_SDA_PIN;
+    GPIO_InitStructPos910.Pin |= I2C1_SDA_PIN;
 #endif
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-    HAL_GPIO_Init(I2C1_PORT, &GPIO_InitStruct);
+    GPIO_InitStructPos910.Mode = GPIO_MODE_AF_OD;
+    GPIO_InitStructPos910.Pull = GPIO_NOPULL;
+    GPIO_InitStructPos910.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStructPos910.Alternate = GPIO_AF4_I2C1;
+    HAL_GPIO_Init(I2C1_PORT, &GPIO_InitStructPos910);
 
     LBF_I2C1_Init( I2C1_SPEED );
 
 #endif
 
-// ==== Set up as PWM output from TIMER4_CH3 if required,          ============
-// ==== and configure relevant pins                                ============   
+// ==== Set up as Timer Outputs (typ. for PWM) from TIMER4         ============
+// ==== (channels 3 and 4) if required, and configure relevant pins============   
 // ====	   This uses parameters defined in User_Configuration.h :  ============
-// ====    POS9_IS_PWM...., PWM_TIM4_..._US			   ============
+// ====    POS9_IS_TIM4_CH3, POS9_IS_TIM4_CH4			   ============
 
-#if defined(POS9_IS_PWM_TIM4_CH3)  || defined(POS10_IS_PWM_TIM4_CH4)  
-GPIO_InitTypeDef GPIO_InitStruct;
+#if defined(POS9_IS_TIM4_CH3)  // Timer4, Channel3 (for ex. PWM) on Posn 9 - from STM32 PB8
+GPIO_InitTypeDef GPIO_InitStructPos9;
+    GPIO_InitStructPos9.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructPos9.Pull = GPIO_NOPULL;
+    GPIO_InitStructPos9.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStructPos9.Alternate = GPIO_AF2_TIM4;
+    GPIO_InitStructPos9.Pin = CONN_POS9_PIN;
+    HAL_GPIO_Init(CONN_POS9_PORT, &GPIO_InitStructPos9);
+#endif 
 
-    __TIM4_CLK_ENABLE();
-
- #if defined(POS9_IS_PWM_TIM4_CH3)  // PWM on Position 9 - from STM32 PB8
-    GPIO_InitStruct.Pin |= CONN_POS9_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
-    HAL_GPIO_Init(CONN_POS9_PORT, &GPIO_InitStruct);
- #endif 
- #if defined(POS10_IS_PWM_TIM4_CH4)  // PWM on Position 10 - from STM32 PB9
-    GPIO_InitStruct.Pin |= CONN_POS10_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
-    HAL_GPIO_Init(CONN_POS10_PORT, &GPIO_InitStruct);
- #endif 
-
-    LBF_PWM4_Ch34_Init(); 
-    // Initializes PWM on Channels 3 and 4 of TIM4, with prescaled clock = 1MHz, 
-    // with initial period and high pulse duration = 0 (to be set by Application)
-
-#endif  // end (POS9_IS_PWM_TIM4_CH3 || POS10_IS_PWM_TIM4_CH4)
+#if defined(POS10_IS_TIM4_CH4)  // Timer4, Channel4 (for ex. PWM)  on Posn 10 - from STM32 PB9
+GPIO_InitTypeDef GPIO_InitStructPos10;
+    GPIO_InitStructPos10.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStructPos10.Pull = GPIO_NOPULL;
+    GPIO_InitStructPos10.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStructPos10.Alternate = GPIO_AF2_TIM4;
+    GPIO_InitStructPos10.Pin = CONN_POS10_PIN;
+    HAL_GPIO_Init(CONN_POS10_PORT, &GPIO_InitStructPos10);
+#endif 
 
 
 

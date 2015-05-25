@@ -412,8 +412,7 @@ void TIM11_IRQHandler(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   // Code to execute when Timer Fires whichever timer it is:
-  //GPIO_TOGGLE( CONN_POS10_PORT, CONN_POS10_PIN );
-  //Stm32_Led_TOGGLE();
+  Stm32_Led_TOGGLE();
 
   // Code to execute depending on which timer fired
   if( htim->Instance == TIM2 ) {

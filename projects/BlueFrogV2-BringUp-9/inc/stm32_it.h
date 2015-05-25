@@ -1,10 +1,10 @@
 /*******************************************************************************
- * LBF_PWM_lowlevAPI.h
+ * stm32_it.h
  * 
  * Author: La BlueFrog, 2015
  *
  * This program is free software; you can redistribute it and/or modify
- * t under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  * 
@@ -18,38 +18,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- ******************************************************************************/
+ *************************************************************************/
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __LBF_PWM_LOWLEVAPI_H
-#define __LBF_PWM_LOWLEVAPI_H
+#ifndef __STM32_IT_H
+#define __STM32_IT_H
 
-
-/* Constants        ---------------------------------------------------------*/
-
-
-/* Custom Types      ---------------------------------------------------------*/
-typedef enum {
-  PWM4 = 4
-}    
-Pwm_ID_t;
-
-typedef enum {
-  PWM4_CH3 = 43,
-  PWM4_CH4 = 44
-}    
-Pwm_ID_Chan_t;
 
 
 /* Exported functions ------------------------------------------------------- */
 
-void LBF_PWM_SetPeriod_us (Pwm_ID_t Pwm_ID, uint32_t Period_us);
-void LBF_PWM_SetPulse_us (Pwm_ID_Chan_t Pwm_ID_Chan, uint32_t  Pulse_us);
-void LBF_PWM_Start (Pwm_ID_Chan_t Pwm_ID_Chan);
-void LBF_PWM_Stop (Pwm_ID_Chan_t Pwm_ID_Chan);
+void EXTI0_IRQHandler (void);
+void EXTI15_10_IRQHandler (void);
+void EXTI9_5_IRQHandler (void);
+void RTC_WKUP_IRQHandler (void);
 
+void NMI_Handler(void);
+void HardFault_Handler(void);
+void MemManage_Handler(void);
+void BusFault_Handler(void);
+void UsageFault_Handler(void);
+void SVC_Handler(void);
+void DebugMon_Handler(void);
+void PendSV_Handler(void);
+void SysTick_Handler(void);
+void USB_HP_CAN1_TX_IRQHandler(void);
+void USB_LP_CAN1_RX0_IRQHandler(void);
 
-#endif  /*__LBF_PWM_LOWLEVAPI_H*/
+#endif /* __STM32_IT_H */
 
 /***************************************************************END OF FILE****/
+

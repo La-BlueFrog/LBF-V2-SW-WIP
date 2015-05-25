@@ -23,7 +23,6 @@
 #include "stm32_it.h"
 #include "LBF_lowlev_API.h"
 
-#include "Debug_Utilities.h" //temp
 
 extern PCD_HandleTypeDef hpcd;
 
@@ -336,120 +335,6 @@ void USB_FS_WKUP_IRQHandler(void)
 }
 
 
-/*******************************************************************************
-* Timer Interrupt Handlers
-
-     // Note:   function HAL_TIM_IRQHandler( &htim ) checks if
-     //  indicated htim is source of IRQ
-     // If so, finds out due to what event and, accordingly, calls one of the following :
-     // HAL_TIM_IC_CaptureCallback(htim) 
-     // HAL_TIM_OC_DelayElapsedCallback(htim) and HAL_TIM_PWM_PulseFinishedCallback(htim) 
-     // HAL_TIM_PeriodElapsedCallback(htim)
-     // HAL_TIM_TriggerCallback(htim)
-     // Also clears the IT flag
-*******************************************************************************/
-
-/*******************************************************************************
-* Function Name  : TIMx_IRQHandler
-* Description    : These functions handle interrupt request from Timer x.
-* Input          : None
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void TIM2_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim2 ); 
-}
-
-void TIM3_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim3 ); 
-}
-
-void TIM4_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim4 ); 
-}
-
-void TIM5_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim5 ); 
-}
-
-void TIM6_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim6 ); 
-}
-
-void TIM7_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim7 ); 
-}
-
-void TIM9_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim9 ); 
-}
-
-void TIM10_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim10 ); 
-}
-
-void TIM11_IRQHandler(void)
-{
-      HAL_TIM_IRQHandler( &htim11 ); 
-}
-
-
-
-/**===========================================================================*/
-/**==     Callback functions called by above IRQ handlers                     */
-/**==     associated to on-chip peripherals                                   */
-/**===========================================================================*/
-
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  // Code to execute when Timer Fires whichever timer it is:
-  //GPIO_TOGGLE( CONN_POS10_PORT, CONN_POS10_PIN );
-  //Stm32_Led_TOGGLE();
-
-  // Code to execute depending on which timer fired
-  if( htim->Instance == TIM2 ) {
-     // Code to handle interrupt from Timer2 here
-     }
-  else if( htim->Instance == TIM3 ) {
-     // Code to handle interrupt from Timer3 here
-     }
-  else if( htim->Instance == TIM4 ) {
-     // Code to handle interrupt from Timer4 here
-     }
-  else if( htim->Instance == TIM5 ) {
-     // Code to handle interrupt from Timer5 here
-     }
-  else if( htim->Instance == TIM6 ) {
-     // Code to handle interrupt from Timer6 here
-     }
-  else if( htim->Instance == TIM7 ) {
-     // Code to handle interrupt from Timer7 here
-     }
-  else if( htim->Instance == TIM9 ) {
-     // Code to handle interrupt from Timer9 here
-     }
-  else if( htim->Instance == TIM10 ) {
-     // Code to handle interrupt from Timer10 here
-     }
-  else if( htim->Instance == TIM11 ) {
-     // Code to handle interrupt from Timer11 here
-     }
-}
-
-
-/*****************************************************************************/
-/*****************************************************************************/
-
-
 /**===========================================================================*/
 /**==     Callback functions called by above IRQ handlers associated to EXTI, */
 /**==       (EXTI = External Interrupts through GPIO pins)                    */
@@ -479,7 +364,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	    //Caution: TimerTick involved, its IRQ priority must be high (urgent) enough
 	    // in Interrupt Configuration files
 #endif
-
 
 
         // wait as long as ONOFF is active (ie. until user has finished pushing button)

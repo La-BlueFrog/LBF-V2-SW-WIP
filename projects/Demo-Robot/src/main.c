@@ -20,7 +20,6 @@
  * 
  *************************************************************************/
 
-
 #include "LBF_Global.h"
 #include "User_Configuration.h"
 
@@ -84,6 +83,7 @@ boolean_t  Success = TRUE;
 /* ===================================================== */
 
 
+
 /* ==  User Declarations =============================== */
 
 // REMINDER :
@@ -122,64 +122,12 @@ boolean_t  Success = TRUE;
 /* ==  Body     ======================================== */
 
 
-Stm32_Led_ON();
 
-Delay_ms(2500);
-
-// Set Direction = Forward
-MC33926_DIR_FWD();
-MC33926_nDIR_FWD();
-
-// Enable Motor Carrier
-MC33926_EN_LOW();
-Delay_ms(1000);
-MC33926_EN_HIGH();
-
-
-// Turn immedialetely off if Fault, 
-   if ( STATUS_FAULT_MC33926() ) 
-      {
-         MC33926_EN_LOW();
-	 Led_StopNBlinkOnFalse( FALSE );  //  
-      }
-
-
-LBF_PWM_Start( PWM4_CH3 );
-LBF_PWM_Start( PWM4_CH4 );
-
-
-LBF_PWM_SetPeriod_us( PWM4, 60);   // 60us period PWM = 17KHz
-LBF_PWM_SetPulse_us (PWM4_CH3, 30);   // 30/60 = 50% duty cycle 
-LBF_PWM_SetPulse_us (PWM4_CH4, 30);   // 30/60 = 50% duty cycle 
-
-while(1)
-{
-
-  // Turn immedialetely off if Fault, 
-   if ( STATUS_FAULT_MC33926() ) 
-      {
-         MC33926_EN_LOW();
-	 Led_StopNBlinkOnFalse( FALSE );  //  
-      }
-
-  // Run for a while and Stop Motor
-    Delay_ms( 2000 );  // run for a while and stop 
-    LBF_PWM_SetPulse_us (PWM4_CH3, 0);   
-    LBF_PWM_SetPulse_us (PWM4_CH4, 0);  
-
-    Stm32_Led_ON();
-
-    Delay_ms( 2000 );  // wait for a while and restart 
-    LBF_PWM_SetPulse_us (PWM4_CH3, 30);   // 30/60 = 50% duty cycle 
-    LBF_PWM_SetPulse_us (PWM4_CH4, 30);   // 30/60 = 50% duty cycle 
-
-    Stm32_Led_OFF();
-
-}
     
 
 return 0;
 }
+
 
 
 

@@ -26,20 +26,6 @@
 #ifndef __IT_PRIO_USERDEFINABLE_H
 #define __IT_PRIO_USERDEFINABLE_H
 
-/* -----  Decide which external interrupts to be visible from STM32 :       -- */
-/* --     (Comment Out / Uncomment as needed )                              -- */
-
-#define ENABLE_INT1_ACC_GYR  	// INT1 from LSM6DS3 Accelerometer+Gyroscope
-//#define ENABLE_INT2_ACC_GYR	// INT2 from LSM6DS3 Accelerometer+Gyroscope
-
-//TODO
-// Complete this list
-
-
-/* -----  Decide which interrupts from on-chip peripherals to enable:  -- */
-
-#define ENABLE_TIM2_IRQ
-
 
 
 /* ---------------  Interrupt Priorities for NVIC  ---------------------- */
@@ -70,15 +56,7 @@
 #define	__EXTI15_10_IRQn_PRIO	0xA	
 
 
-#define __TIM2_IRQn_PRIO	0xA
-#define __TIM3_IRQn_PRIO	0xA
-#define __TIM4_IRQn_PRIO	0xA
-#define __TIM5_IRQn_PRIO	0xA
-#define __TIM6_IRQn_PRIO	0xA
-#define __TIM7_IRQn_PRIO	0xA
-#define __TIM9_IRQn_PRIO	0xA
-#define __TIM10_IRQn_PRIO	0xA
-#define __TIM11_IRQn_PRIO	0xA
+
 
 
 #endif  /*__IT_PRIO_USERDEFINABLE_H */

@@ -1,0 +1,9 @@
+LPS25H Pressure Sensor Demo
+===========================
+
+Get LED to blink continuously 
+USB active
+Create new FAT file (to store results)
+
+Measure pressure every minute
+Store result in file

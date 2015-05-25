@@ -20,11 +20,8 @@
  * 
  *************************************************************************/
 
-
 #include "LBF_Global.h"
 #include "User_Configuration.h"
-
-
 
 /*******************************************************************************
 * Function Name  : main.
@@ -67,7 +64,7 @@ boolean_t  Success = TRUE;
 
     /* ... To initialize the STemWin Graphical Library              */ 
     /*     Caution: reserves some RAM - keep some for stack/heap    */
-    //Success &= LBF_emWin_Init();
+    Success &= LBF_emWin_Init();
 
     // ERROR HANDLER
     /* Replace by your own as wished */
@@ -86,90 +83,98 @@ boolean_t  Success = TRUE;
 
 /* ==  User Declarations =============================== */
 
-uint32_t Pulse, Period;
-uint8_t i;
-
-// On EXtension Connector Position 2:
-// Global Enable for MC33926 carrier board 
-#define MC33926_EN_LOW()           GPIO_LOW(CONN_POS2_PORT, CONN_POS2_PIN)
-#define MC33926_EN_HIGH()          GPIO_HIGH(CONN_POS2_PORT, CONN_POS2_PIN)
-
-// On EXtension Connector Position 3:
-// Fault Status from MC33926, active low
-#define STATUS_FAULT_MC33926()        IS_GPIO_RESET(CONN_POS3_PORT, CONN_POS3_PIN)
-// returns a uint8_t result
-
-// On Extension Connector Position 5:
-// Direction (Common to Motors 1 and 2)
-#define MC33926_DIR_BWD()           GPIO_LOW(CONN_POS5_PORT, CONN_POS5_PIN)
-#define MC33926_DIR_FWD()          GPIO_HIGH(CONN_POS5_PORT, CONN_POS5_PIN)
-
-// On Extension Connector Position 6:
-// notDirection (Common to Motors 1 and 2)
-#define MC33926_nDIR_LOW()           GPIO_LOW(CONN_POS6_PORT, CONN_POS6_PIN)
-#define MC33926_nDIR_HIGH()          GPIO_HIGH(CONN_POS6_PORT, CONN_POS6_PIN)
-
-// On Extension Connector Position 9:
-// Enable Motor 1 - PWM signal (supports up to 20KHz)
-
-// On Extension Connector Position 10:
-// Enable Motor 2 - PWM signal (supports up to 20KHz)
+const uint16_t  Period = 200; //200ms pwm period
+uint16_t	Pulse_Selection[4] = {20, 40, 80, 160};  // 0.2, 0.4, 0.8 or 1.6ms high pulse
+uint8_t		PulseIndex = 0;
 
 
 /* ==  Body     ======================================== */
 
-while( !State_Switch1_IsOn() && !State_Switch2_IsOn() );  // wait for button pressed
- 
-while( State_Switch1_IsOn() || State_Switch2_IsOn() );  // wait for button released
 
-Stm32_Led_ON();
+    Stm32_Led_ON();
+    
 
-// Enable Motor Carrier
-MC33926_EN_LOW();
-Delay_ms(1000);
-MC33926_EN_HIGH();
+    // *** Timer-based interrupt generation demo section ************
+
+    // Timers 2 and 3 will be used as Time Base Units 
+    LBF_Timer_Setup( TIMER2, TIMER_UNIT_US, 30000);  //Configure Timer2 for 1us prescaled clock, 30ms period
+    LBF_Timer_Setup( TIMER3, TIMER_UNIT_MS, 500);  //Configure Timer3 for 1ms prescaled clock, 0.5s period
+
+   // Start timer2 to fire IT when elapsed (so, every 30ms)
+   // Then in IT handler (cf stm32_it.c), LED gets toggled
+   // => Should see LED blinking fast
+   // Switch off after 2s
+    LBF_Timer_Start_ITout( TIMER2 );  //Start Timer2 with IT generation
+    Delay_ms(2000);
+    LBF_Timer_Stop( TIMER2 );  //Now stop Timer2 
+
+    // Wait a bit....
+    Stm32_Led_OFF();
+    Delay_ms(1000);  
+
+   // Start timer3 to fire IT when elapsed (so, every 0.5s)
+   // Then in IT handler (cf stm32_it.c), LED gets toggled
+   // => Should see LED blinking slowly
+   // Switch off after 4s
+    LBF_Timer_Start_ITout( TIMER3 );  //Start Timer2 with IT generation
+    Delay_ms(4000);
+    LBF_Timer_Stop( TIMER3 );  //Now stop Timer2 
+
+    // Wait a bit....
+    Stm32_Led_OFF();
+    Delay_ms(1000);  
 
 
-// Turn immedialetely off if Fault, 
-   if ( STATUS_FAULT_MC33926() ) 
-      {
-         MC33926_EN_LOW();
-	 Led_StopNBlinkOnFalse( FALSE );  //  
-      }
+
+    // *** PWM demo section  (PWM on Timer4, Channel 4)  *******************
+
+    // Set-up Timer 4 and specify period 
+    LBF_Timer_Setup( TIMER4, TIMER_UNIT_MS, Period );  
 
 
+    // Set-up Channel 4 of Timer 4 and specify high pulse duration (duty cycle = pulse / period)
+    LBF_PWMchannel_Setup( TIMER4, CHANNEL4, Pulse_Selection[PulseIndex]);   
 
+    // Launch PWM
+    LBF_PWMChannel_Start( TIMER4, CHANNEL4 );  
+    // available on Ext. Conn; Position 10 - cf User_Configuration.h
 
-    LBF_PWM_Start( PWM4_CH3 );
-    LBF_PWM_Start( PWM4_CH4 );
-
-    LBF_PWM_SetPeriod_us( PWM4, 60);   // 60us period PWM = 17KHz
-
-    LBF_PWM_SetPulse_us (PWM4_CH3, 30);   // 30/60 = 50% duty cycle 
-    LBF_PWM_SetPulse_us (PWM4_CH4, 30);   // 30/60 = 50% duty cycle 
 
     while(1)
-    {   
-   // Turn immedialetely off if Fault, 
-    if ( STATUS_FAULT_MC33926() ) 
-       {
-          MC33926_EN_LOW();
-	  Led_StopNBlinkOnFalse( FALSE );  //  
-       }
+    {	
+        // Now we will get LED to follow state of PWM 
+        // by checking value present on position 10 of Connector 
+        // (this requires the #define POS10_IS_PWM_TIM4_CH4  in User_Configuration.h )
+        if ( IS_GPIO_SET( CONN_POS10_PORT, CONN_POS10_PIN ) )
+        {
+           Stm32_Led_ON();
+        }
+        else
+        {
+            Stm32_Led_OFF();
+        }
 
-             Stm32_Led_ON();
-             Delay_ms(200);
-             Stm32_Led_OFF();
-             Delay_ms(800);
+        // ...and we will increase or decrease the duty cycle when user presses side-push buttons 
+        if (State_Switch1_IsOn() )
+        {   
+            while (State_Switch1_IsOn()); // wait for release
+            if ( PulseIndex-- == 0)
+	       PulseIndex = 3;
+        }
+        if (State_Switch2_IsOn() )
+        {
+            while (State_Switch2_IsOn()); // wait for release
+           if ( ++PulseIndex == 4)
+	       PulseIndex = 0;
+        }
+        LBF_PWMChannel_UpdatePulse (TIMER4, CHANNEL4, Pulse_Selection[PulseIndex]);
 
-           }
+    }  // end while(1)
 
 
-
-    }
-    
-    return 0;
+return 0;
 }
+
 
 
 

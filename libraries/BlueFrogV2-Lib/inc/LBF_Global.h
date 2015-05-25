@@ -46,7 +46,6 @@
 #include "LBF_lowlev_API.h"
 
 // ---  Debug Utilities   -----------------------
-#include "LBF_lowlev_API.h"
 #include "Debug_Utilities.h"
 
 
@@ -54,6 +53,9 @@
 
 // -- LSM6DS3 Accelero + Gyro
 #include "LBF_lsm6ds3.h"
+
+// -- LPS25H Pressure Sensor
+#include "LBF_lps25h.h"
 
 
 // ---  MiddleWare APIs :   ----------------------

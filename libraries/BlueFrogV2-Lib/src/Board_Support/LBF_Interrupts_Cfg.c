@@ -164,6 +164,10 @@ void Configure_NVIC(void)
        /* Note - Following assumes NVIC Priority Grouping = 4, 
           i.e. Preemption priority on 4 bits, Sub-priority on 0 bits (i.e. not used) */
 
+        
+       // Usage: 
+       // HAL_NVIC_SetPriority( xxx_IRQn, <pre-emption level> , <subpriority always 0 here>); 
+
 
        // ===   EXTIx_IRQn  Interrupts : =========================================== */
        // These are triggered by pin "x" of ports GPIO.A/B/C/D when these are
@@ -197,6 +201,12 @@ void Configure_NVIC(void)
         // EXTI15_10_IRQn 		
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn, __EXTI15_10_IRQn_PRIO , 0); 
         HAL_NVIC_EnableIRQ(EXTI15_10_IRQn); 
+
+
+
+       // ===   On-Chip  Interrupts : =========================================== */
+
+
 
 
     }

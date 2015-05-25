@@ -1,0 +1,22 @@
+TIMERS AND PWM
+===============
+
+Part 1: Timer with IT generation 
+
+Set-up a timer at a given period - generate IP when period elapses.
+In IT handler, toggle LED
+==> this will cause LED to blink at rate defined by timer period
+Stop timer after a while.
+
+Repeat with a second timer at a different rate
+
+
+Part 2: PWM generation.
+
+Set up timer and selected channel to generate PWM,
+output it on extension connector position 10 
+  ==> cabbe observed with a scope
+Also capture state of corresponding GPIO and set LED on or off depending on captured state.
+This will cause LED to illustrate PWM status (blinks with same period and duty cycle)
+
+
