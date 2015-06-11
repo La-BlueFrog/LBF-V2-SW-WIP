@@ -481,6 +481,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 
 
+
         // wait as long as ONOFF is active (ie. until user has finished pushing button)
         while(HAL_GPIO_ReadPin(ONOFF_STAT_PORT, ONOFF_STAT_PIN) == GPIO_PIN_RESET);
 

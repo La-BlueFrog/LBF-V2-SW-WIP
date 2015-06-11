@@ -28,26 +28,12 @@
 
 
 
-/* -----  Decide which external interrupts to be visible from STM32 :       -- */
-/* --     (Comment Out / Uncomment as needed )                              -- */
+/* ---------------  Interrupt Priorities for NVIC  ---------------------- */
 
-#define ENABLE_INT1_ACC_GYR  	// INT1 from LSM6DS3 Accelerometer+Gyroscope
-//#define ENABLE_INT2_ACC_GYR	// INT2 from LSM6DS3 Accelerometer+Gyroscope
-
-//TODO
-// Complete this list
-
-
-
-/* -----  Interrupt Priorities for NVIC     ----------------------------------- */
-
-/*  ================================================================
- *  NOTE:  A list of the potential interrupt sources in La BlueFrog  
- *  and their assignment to EXTI pins
- *   can be found in :
- *  			  stm32_it.c
- *
- *  ================================================================  */
+/*  
+ *  A list of the potential interrupt sources in La BlueFrog  
+ *   can be found in stm32_it.c
+ */
 
 
 /* Priority levels can be set between 0x0 and 0xF                 */
@@ -66,11 +52,19 @@
 #define	__EXTI2_IRQn_PRIO	0xA	
 #define	__EXTI3_IRQn_PRIO	0xA	
 #define	__EXTI4_IRQn_PRIO	0xA	
-#define	__EXTI9_5_IRQn_PRIO   	0xA
+#define	__EXTI9_5_IRQn_PRIO   	0xA	// includes ONOFF_STAT pin from PMIC, triggers power-on/-off
 #define	__EXTI15_10_IRQn_PRIO	0xA	
 
 
-
+#define __TIM2_IRQn_PRIO	0xA
+#define __TIM3_IRQn_PRIO	0xA
+#define __TIM4_IRQn_PRIO	0xA
+#define __TIM5_IRQn_PRIO	0xA
+#define __TIM6_IRQn_PRIO	0xA
+#define __TIM7_IRQn_PRIO	0xA
+#define __TIM9_IRQn_PRIO	0xA
+#define __TIM10_IRQn_PRIO	0xA
+#define __TIM11_IRQn_PRIO	0xA
 
 
 #endif  /*__IT_PRIO_USERDEFINABLE_H */

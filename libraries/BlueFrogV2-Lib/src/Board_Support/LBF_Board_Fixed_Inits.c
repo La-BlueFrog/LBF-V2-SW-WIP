@@ -50,7 +50,6 @@
 #include "LBF_OLED_IOcfg.h"
 #include "LBF_BTLE_IOcfg.h"
 #include "LBF_PWR_IOcfg.h"
-#include "LBF_PWR_Init.h"
 #include "LBF_FLASH_Init.h"
 
 //#include "LBF_OLED_Init.h"

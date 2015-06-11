@@ -30,14 +30,13 @@
 #include "LBF_UART1_Init.h"
 #include "LBF_BTLE_Init.h"
 
-#include "LBF_Interrupts_Cfg.h"
+//#include "LBF_Interrupts_Cfg.h"
 
 #include "LBF_OLED_Init.h"
 
 #include "User_Configuration.h"
 
-
-#include "Debug_Utilities.h" //!!!!!!!!dEBUG !!!!!!!!
+#include "Debug_Utilities.h" 
 
 
 /* Functions -----------------------------------------------------------------*/
@@ -94,7 +93,7 @@ boolean_t Success;
     // with value specified in User_Configuration.h so that UART1
     // is ready to use by application for STM32-BTLE exchanges
 
-    Led_StopNBlinkOnFalse (Success);  //!!!!!! DEBUG!!!!!!!!!
+    Led_StopNBlinkOnFalse (Success); 
 
 #endif
 
@@ -102,8 +101,8 @@ boolean_t Success;
 
 /* --------  Interrupt Sources to STM32 + priorities  ----------  */
 
-    LBF_Interrupts_Cfg();
-
+//    LBF_Interrupts_Cfg();
+// Now done through API 
 
 
 }

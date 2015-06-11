@@ -1,6 +1,5 @@
 /*******************************************************************************
- * LBF_Interrupts_Cfg.h
- * 
+ * LBF_ExtIT_lowlevAPI.h
  * 
  * Author: La BlueFrog, 2015
  *
@@ -22,21 +21,24 @@
  ******************************************************************************/
 
 
-
-
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __LBF_INTERRUPTS_CFG_H
-#define __LBF_INTERRUPTS_CFG_H
+#ifndef __LBF_EXTIT_LOWLEVAPI_H
+#define __LBF_EXTIT_LOWLEVAPI_H
 
 
+/* Custom Types      ---------------------------------------------------------*/
+typedef enum {
+  FALLING = 0,
+  RISING = 1
+}    
+IT_Polarity_t;
 
-/* ---------------- Exported Function Prototypes */
+/* Exported functions ------------------------------------------------------- */
 
-void LBF_Interrupts_Cfg(void) ;
+void Enable_ExtIT( GPIO_TypeDef* GPIO_Port, uint16_t  GPIO_Pin, IT_Polarity_t  IT_Polarity );
+void Disable_ExtIT( GPIO_TypeDef* GPIO_Port, uint16_t  GPIO_Pin );
 
 
-
-#endif  /*__LBF_INTERRUPTS_CFG_H */
+#endif  /*__LBF_EXTIT_LOWLEVAPI_H*/
 
 /***************************************************************END OF FILE****/

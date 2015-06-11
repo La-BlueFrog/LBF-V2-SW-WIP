@@ -365,11 +365,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 // Service Interrupt
 // Need to define which was the source
-// FIXME :
-// So far can be done by just examining GPIO_Pin ...
-// ...but how to handle case where say Pins PB13 and PC13 (same pin on different ports)
-// can both be IT sources?
-
 
   if (GPIO_Pin == INT2_ACC_GYR_PIN)
   {

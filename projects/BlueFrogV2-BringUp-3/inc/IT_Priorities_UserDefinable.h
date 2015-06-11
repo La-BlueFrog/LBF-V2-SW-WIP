@@ -26,19 +26,6 @@
 #ifndef __IT_PRIO_USERDEFINABLE_H
 #define __IT_PRIO_USERDEFINABLE_H
 
-/* -----  Decide which external interrupts to be visible from STM32 :       -- */
-/* --     (Comment Out / Uncomment as needed )                              -- */
-
-#define ENABLE_INT1_ACC_GYR  	// INT1 from LSM6DS3 Accelerometer+Gyroscope
-//#define ENABLE_INT2_ACC_GYR	// INT2 from LSM6DS3 Accelerometer+Gyroscope
-
-//TODO
-// Complete this list
-
-
-/* -----  Decide which interrupts from on-chip peripherals to enable:  -- */
-
-#define ENABLE_TIM2_IRQ
 
 
 

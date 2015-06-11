@@ -43,7 +43,7 @@
 #include "LBF_I2C2_lowlevAPI.h"
 #include "LBF_UART_lowlevAPI.h"
 #include "LBF_Timer_lowlevAPI.h"
-
+#include "LBF_ExtIT_lowlevAPI.h"
 
 #endif /* __LBF_LOWLEV_API_H */
 

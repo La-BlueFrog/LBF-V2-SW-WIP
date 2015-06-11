@@ -25,6 +25,8 @@
 
 #include "LBF_PWR_IOcfg.h"
 
+#include "IT_Priorities_UserDefinable.h"
+
 /*******************************************************************************
  * @brief  : Configure GPIOs dedicated to PMIC - LTC533, VDD_OLED Power Switch
  * @param  : none.
@@ -86,6 +88,24 @@ GPIO_InitTypeDef GPIO_InitStruct;
 /* -- Make sure OLED VDDH is off at start-up   -- */
 
     Turn_VDDH_Off();
+
+/* ---------------------------------------------- */
+/* -- Use Debounced ON/OFF form LTC3553 as    --- */
+/* --  interrupt to switch off the device     --- */
+
+    // Power Off from Debounced Push-Button   
+    // ONOFF_STAT (PC13) -  Input, weak pull-up
+    // Suitable for active low Open-Drain IT
+    GPIO_InitStruct.Pin = ONOFF_STAT_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;  // active low
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    HAL_GPIO_Init(ONOFF_STAT_PORT, &GPIO_InitStruct);
+
+
+    // Also need to configure EXTI15_10_IRQn 
+    // (since IT is on pin 13 of GPIOC) at NVIC level
+    HAL_NVIC_SetPriority(EXTI15_10_IRQn, __EXTI15_10_IRQn_PRIO , 0); 
+    HAL_NVIC_EnableIRQ(EXTI15_10_IRQn); 
 
 
 }

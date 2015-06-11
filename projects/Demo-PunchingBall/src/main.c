@@ -157,6 +157,8 @@ uint16_t	i;
   I2C2_RmodWSingleReg( LSM6DS3_CHIPID, 
 			LSM6DS3_XG_TAP_CFG, 0x01, 0x01 );
 
+  // Enable External Interrupt from LSM6DS3 IT1 on STM32
+  Enable_ExtIT( INT1_ACC_GYR_PORT, INT1_ACC_GYR_PIN, RISING);
 
   //*** Set-up FIFO: what to store, at what rate, etc.
 

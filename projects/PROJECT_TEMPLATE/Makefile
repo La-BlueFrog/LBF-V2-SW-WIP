@@ -42,11 +42,9 @@ VPATH          := $(VPATH):$(HAL_DIR)/src
 HAL_SRC   = $(notdir $(wildcard $(HAL_DIR)/src/*.c))
 
 # Source file paths : Sensor_APIs
-# VPATH          := $(VPATH):$(SENSORS_DIR)
-# SENSORS_SRC   = $(notdir $(wildcard $(SENSORS_DIR)/*/src/*.c))
 VPATH          := $(VPATH):$(SENSORS_DIR)/LSM6DS3/src
-SENSORS_SRC   = $(notdir $(wildcard $(SENSORS_DIR)/LSM6DS3/src/*.c))
-
+VPATH          := $(VPATH):$(SENSORS_DIR)/LPS25H/src
+SENSORS_SRC   = $(notdir $(wildcard $(SENSORS_DIR)/*/src/*.c))
 
 # Source file paths : STM32_USB_Device_Library /Class/MSC & /Core
 VPATH          := $(VPATH):$(USB_DIR)/Class/MSC/Src
@@ -100,6 +98,7 @@ INCLUDES = \
 	$(CMSIS_DIR)/Include \
 	$(HAL_DIR)/inc \
 	$(SENSORS_DIR)/LSM6DS3/inc \
+	$(SENSORS_DIR)/LPS25H/inc \
 	$(USB_DIR)/Class/MSC/Inc \
 	$(USB_DIR)/Core/Inc \
 	$(FATFS_DIR)/inc \

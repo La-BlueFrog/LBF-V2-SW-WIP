@@ -59,11 +59,16 @@
 #define	UART1_BAUDRATE	 115200  	
 
 
+
 // ============================================================================
 //    Parameters of peripherals usable on extension connector
 // ============================================================================
 
-// --------------------------------------------------------
+
+// -------------------------------------------------
+//    UART3 Baud Rate 
+// -------------------------------------------------
+
 // If UART3 is used (on Connector Positions 5 or 6) below,
 // specify here the required baud rate :
 //   (no effect if UART3 not used on extension connector pins)
@@ -74,7 +79,11 @@
 //   8 bit data, 1 Stop bit, no Parity bit ...
 // Write your own code if you need something different
 
-// --------------------------------------------------------
+
+// -------------------------------------------------
+//    I2C1 Clock Speed  
+// -------------------------------------------------
+
 // If I2C #1 is used (on Connector Positions 9 or 10) below,
 // specify here the required baud rate :
 //   (no effect if I2C1 not used on extension connector pins)
@@ -85,7 +94,11 @@
 //   7-bit addressing mode, dual address disabled, general call disabled
 // Write your own code if you need something different
 
-// --------------------------------------------------------
+
+// -------------------------------------------------
+//    SPI1 Bit Rate  
+// -------------------------------------------------
+
 // If SPI #1 is used (on Connector Positions 1, 2 or 3) below,
 // specify here the required baud rate :
 //   (no effect if SPI1 not used on extension connector pins)

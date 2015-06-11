@@ -148,3 +148,47 @@ This can be read on ad-hoc iOS or Android application.
 // app stores
 // --------------------------------------------------------
 
+
+8-
+==========================================
+BlueFrogV2-BringUp-8/BriefDesc.txt
+=====================
+BlueTooth Low Energy Test, HOST
+==========================================
+
+Initialize Module, Enable USB
+With BTLE enabled in user configuration file,
+ LBF_Board_Selective_Inits() will include download by STM32 of specified executable in
+to BTLE module.
+
+QUICK AND DIRTY IMPLEMENTATION so far
+Just shows the link is working
+
+
+9-
+==========================================
+BlueFrogV2-BringUp-9/BriefDesc.txt
+=====================
+TIMERS AND PWM
+==========================================
+
+
+Part 1: Timer with IT generation 
+
+Set-up a timer at a given period - generate IP when period elapses.
+In IT handler, toggle LED
+==> this will cause LED to blink at rate defined by timer period
+Stop timer after a while.
+
+Repeat with a second timer at a different rate
+
+
+Part 2: PWM generation.
+
+Set up timer and selected channel to generate PWM,
+output it on extension connector position 10 
+  ==> cabbe observed with a scope
+Also capture state of corresponding GPIO and set LED on or off depending on captured s
+tate.
+This will cause LED to illustrate PWM status (blinks with same period and duty cycle)
+

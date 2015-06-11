@@ -359,6 +359,9 @@ TIM_OC_InitTypeDef sConfigOC;
 
 void LBF_PWMChannel_UpdatePulse (TimerID_t TimerID, ChannelID_t ChannelID, uint32_t  Pulse_as_TimerUnits)
 {
+  if (Pulse_as_TimerUnits==0)	    //if user wants no pulse
+	Pulse_as_TimerUnits = 1;    //avoid roll-over when substracting '1' below
+
 
   if (TimerID == TIMER4)
   {

@@ -59,108 +59,225 @@
 #define	UART1_BAUDRATE	 115200  	
 
 
+// ============================================================================
+//    Parameters of peripherals usable on extension connector
+// ============================================================================
+
+// --------------------------------------------------------
+// If UART3 is used (on Connector Positions 5 or 6) below,
+// specify here the required baud rate :
+//   (no effect if UART3 not used on extension connector pins)
+
+#define	UART3_BAUDRATE	 57600	// indicate here required baudrate in bits/s
+
+// Other UART parameters default to :
+//   8 bit data, 1 Stop bit, no Parity bit ...
+// Write your own code if you need something different
+
+// --------------------------------------------------------
+// If I2C #1 is used (on Connector Positions 9 or 10) below,
+// specify here the required baud rate :
+//   (no effect if I2C1 not used on extension connector pins)
+
+#define	I2C1_SPEED	100000	// indicate here required I2C clock speed in Hz
+
+// Other I2C1 parameters default to :
+//   7-bit addressing mode, dual address disabled, general call disabled
+// Write your own code if you need something different
+
+// --------------------------------------------------------
+// If SPI #1 is used (on Connector Positions 1, 2 or 3) below,
+// specify here the required baud rate :
+//   (no effect if SPI1 not used on extension connector pins)
+
+//
+// TODO
+// CAUTION - FOR NOW SPI1 is used by OLED !!!!!!!!!!!!!!!!!!
+// Other SPI1 parameters default to :
+//   xxxx
+// Write your own code if you need something different
+
+
 
 // ============================================================================
-// CONNECTOR POSITIONS 1 to 3  
-//	Optionally usable as SPI1 or GPIO or ....
+// CONNECTOR POSITION 1  -  Optionally usable as :
+//    GPIO or SPI1 SCLK or ...
 //      ( it's exclusive, make sure you have ONE single define uncommented )
 // ============================================================================
 
-// ---------------------------------------------------------------------
-//    SPI1 Usage on External Connector pos. 1 to 3
-// ---------------------------------------------------------------------
-
-// TODO
+// Pos.1:  Uncomment ONE of following lines if needed
 
 // -------------------------------------------------
-//    Simple GPIO Usage on External Connector pos. 1 to 3
+//    Simple GPIO Usage on External Connector pos. 1 
 // -------------------------------------------------
-
-// Pos.1:  Comment out / Uncomment ONE of following lines if needed
-//
 // #define POS1_IS_GPIO_IN	// Pin used as input     
 // #define POS1_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS1_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
 // #define POS1_IS_GPIO_OUT	// Pin used as regular CMOS ouput
 // #define POS1_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
-// Pos.2:  Comment out / Uncomment ONE of following lines if needed
-//
-//#define POS2_IS_GPIO_IN	// Pin used as input     
+// ---------------------------------------------------------------------
+//    SPI1 SCK Usage on External Connector pos. 1 
+// ---------------------------------------------------------------------
+// TODO
+
+
+
+// ============================================================================
+// CONNECTOR POSITION 2  -  Optionally usable as :
+//    GPIO or SPI1 MISO or TIMER3 CH.1 or TIMER10 CH.1 
+//      ( it's exclusive, make sure you have ONE single define uncommented )
+// ============================================================================
+
+// Pos.2:  Uncomment ONE of following lines if needed
+
+// -------------------------------------------------
+//    Simple GPIO Usage on External Connector pos. 2
+// -------------------------------------------------
+// #define POS2_IS_GPIO_IN	// Pin used as input     
 // #define POS2_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS2_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
-// #define POS2_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+
+#define POS2_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+	// here POS2 = Motor Enable (out)
+
 // #define POS2_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
-// Pos.3:  Comment out / Uncomment ONE of following lines if needed
-//
+// ---------------------------------------------------------------------
+//    SPI1 MISO Usage on External Connector pos. 2
+// ---------------------------------------------------------------------
+// TODO
+
+// ---------------------------------------------------------------------
+//    TIMER3/TIMER10 Usage on External Connector pos. 2  (typ. for PWM)
+// ---------------------------------------------------------------------
+//#define POS2_IS_TIM3_CH1	//Pin bears Channel1 of Timer3
+//#define POS2_IS_TIM10_CH1	//Pin bears Channel1 of Timer10  
+
+
+
+// ============================================================================
+// CONNECTOR POSITION 3  -  Optionally usable as :
+//    GPIO or SPI1 MOSI or TIMER3 CH.2 or TIMER11 CH.1 
+//      ( it's exclusive, make sure you have ONE single define uncommented )
+// ============================================================================
+
+// Pos.3:  Uncomment ONE of following lines if needed
+
+// -------------------------------------------------
+//    Simple GPIO Usage on External Connector pos. 3
+// -------------------------------------------------
+
 // #define POS3_IS_GPIO_IN	// Pin used as input     
-// #define POS3_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
-//#define POS3_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
+
+#define POS3_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
+	// here POS3 = Motor nFail (In, Open-Drain on motor side with weak PU) 
+
+// #define POS3_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
 // #define POS3_IS_GPIO_OUT	// Pin used as regular CMOS ouput
 // #define POS3_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
+// ---------------------------------------------------------------------
+//    SPI1 MOSI Usage on External Connector pos. 3
+// ---------------------------------------------------------------------
+// TODO
+
+// ---------------------------------------------------------------------
+//    TIMER3/TIMER11 Usage on External Connector pos. 3  (typ. for PWM)
+// ---------------------------------------------------------------------
+// Note:  different channels of SAME timer can have different duty cycles 
+//        but will share SAME period
+
+//#define POS3_IS_TIM3_CH2	//Pin bears Channel2 of Timer3
+//#define POS3_IS_TIM11_CH1	//Pin bears Channel1 of Timer11
+
+
 
 // ============================================================================
-// CONNECTOR POSITIONS 4 :     
+// CONNECTOR POSITION 4 :     
 //	Bears Microphone output - Also goes to STM32 PB0 used as analog input 
 // ============================================================================
 
+// Pos.4:  Uncomment ONE of following lines if needed
+
+// TODO
+
 
 
 // ============================================================================
-// CONNECTOR POSITIONS 5 and 6 :   
-//	Optionally usable as either UART3 or GPIO or ...
+// CONNECTOR POSITION 5  -  Optionally usable as :
+//    GPIO or UART3 TX or ...
 //      ( it's exclusive, make sure you have ONE single define uncommented )
 // ============================================================================
 
-// ---------------------------------------------------------------------
-//    UART3 Usage on External Connector pos. 5 and 6
-// ---------------------------------------------------------------------
-
-// Comment out / Uncomment each of next 2 lines as needed :
-//
-// #define POS5_IS_UART3_TX 	//defined means Position 5 bears USART3 Tx
-// #define POS6_IS_UART3_RX 	//defined means Position 6 bears USART3 Rx
-
-
-// Assign required values (no effect if no pin enables as UART3 above) :
-//
-#define	UART3_BAUDRATE	 57600	// indicate here required baudrate in bits/s
-
-// Other UART parameters default to :
-//   8 bit data, 1 Stop bit, no Parity bit ...
-// Tune code if you need something different
-
+// Pos.5:  Uncomment ONE of following lines if needed
 
 // ---------------------------------------------------------------------
-//    Simple GPIO Usage on External Connector pos. 5 and 6
-//      ( it's exclusive, make sure you have ONE single define uncommented )
+//    Simple GPIO Usage on External Connector pos.5
 // ---------------------------------------------------------------------
-
-// Pos.5:  Comment out / Uncomment ONE of following lines if needed
-//
 // #define POS5_IS_GPIO_IN	// Pin used as input     
 // #define POS5_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS5_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
-// #define POS5_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+
+ #define POS5_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+	// here POS5 = Dir  (out)
+
 // #define POS5_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
-// Pos.6:  Comment out / Uncomment ONE of following lines if needed
-//
+// ---------------------------------------------------------------------
+//    UART3 Usage on External Connector pos. 5
+// ---------------------------------------------------------------------
+// #define POS5_IS_UART3_TX 	// Position 5 bears USART3 Tx
+   //  !!!! If used, make sure you specify the BAUD RATE required    !!!
+   //  !!!!   at top of this file       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+// ============================================================================
+// CONNECTOR POSITION 6  -  Optionally usable as :
+//    GPIO or UART3 RX or ...
+//      ( it's exclusive, make sure you have ONE single define uncommented )
+// ============================================================================
+
+// Pos.6:  Uncomment ONE of following lines if needed
+
+// ---------------------------------------------------------------------
+//    Simple GPIO Usage on External Connector pos.6
+// ---------------------------------------------------------------------
 // #define POS6_IS_GPIO_IN	// Pin used as input     
 // #define POS6_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS6_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
-// #define POS6_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+
+#define POS6_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+	// here POS6 = nDir  (out)
+
 // #define POS6_IS_GPIO_OUT_OD  // Pin used as open-drain output
+
+// ---------------------------------------------------------------------
+//    UART3 Usage on External Connector pos. 6
+// ---------------------------------------------------------------------
+// #define POS6_IS_UART3_RX 	// Position 6 bears USART3 Rx
+   //  !!!! If used, make sure you specify the BAUD RATE required    !!!
+   //  !!!!   at top of this file       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
 // ============================================================================
 // CONNECTOR POSITION 7 :   
-//	Optionally usable as GPIO or ...
+//	Optionally usable as GPIO or (USART3 CLK?)...
 //      ( it's exclusive, make sure you have ONE single define uncommented )
 // ============================================================================
+
+// Pos.7:  Uncomment ONE of following lines if needed
+
+// ---------------------------------------------------------------------
+//    Simple GPIO Usage on External Connector pos.7
+// ---------------------------------------------------------------------
+// #define POS7_IS_GPIO_IN	// Pin used as input     
+// #define POS7_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
+// #define POS7_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
+// #define POS7_IS_GPIO_OUT	// Pin used as regular CMOS ouput
+// #define POS7_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
 
 
@@ -171,64 +288,68 @@
 
 
 // ============================================================================
-// CONNECTOR POSITIONS 9 and 10 :   
-//	Optionally usable as I2C1 or PWM (Timer4, Channels 3 and 4)  or GPIO or ...
+// CONNECTOR POSITION 9  -  Optionally usable as :
+//    GPIO or I2C21 SCL or TIMER4 Ch.3
 //      ( it's exclusive, make sure you have ONE single define uncommented )
 // ============================================================================
 
+// Pos.9:  Uncomment ONE of following lines if needed
 
-// ---------------------------------------------------------------------
-//    I2C1 Usage on External Connector pos. 9 and 10
-// ---------------------------------------------------------------------
-
-// Comment out / Uncomment each of next 2 lines as needed :
-//
-// #define POS9_IS_I2C1_SCL 	//defined means Position 9 bears I2C1 SCL
-// #define POS10_IS_I2C1_SDA 	//defined means Position 10 bears I2C1_SDA
-
-
-// Assign required values (no effect if no pin enables as UART3 above) :
-//
-#define	I2C1_SPEED	100000	// indicate here required I2C clock speed in Hz
-
-// Other I2C1 parameters default to :
-//   7-bit addressing mode, dual address disabled, general call disabled
-// Tune code if you need something different
-
-
-// ---------------------------------------------------------------------
-//    PWM Usage on External Connector pos. 9 and 10  --> from TIM4 Ch.3 and 4
-// ---------------------------------------------------------------------
-
-// Note:  different channels of same timer can have different duty cycles 
-//        but share same period
-
-// Comment out / Uncomment each of next lines as needed :
-//
-// #define POS9_IS_PWM_TIM4_CH3   //defined means Position 9 bears PWM generated by Channel 3 of Timer 4
-#define POS10_IS_TIM4_CH4  //defined means Position 10 bears PWM generated by Channel 4 of Timer 4
-
-
-// ---------------------------------------------------------------------
-//    Simple GPIO Usage on External Connector pos. 9 and 10
-// ---------------------------------------------------------------------
-
-// Pos.9:  Comment out / Uncomment ONE of following lines if needed
-//
+// -------------------------------------------------
+//    Simple GPIO Usage on External Connector pos. 9
+// -------------------------------------------------
 // #define POS9_IS_GPIO_IN	// Pin used as input     
 // #define POS9_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS9_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
 // #define POS9_IS_GPIO_OUT	// Pin used as regular CMOS ouput
 // #define POS9_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
-// Pos.10:  Comment out / Uncomment ONE of following lines if needed
-//
+// ---------------------------------------------------------------------
+//    I2C1 SCL Usage on External Connector pos. 9 
+// ---------------------------------------------------------------------
+// #define POS9_IS_I2C1_SCL 	//defined means Position 9 bears I2C1 SCL
+   //  !!!! If used, make sure you specify the SPEED required        !!!
+   //  !!!!   at top of this file       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// ---------------------------------------------------------------------
+//    TIMER4 Usage on External Connector pos. 9  (typ. for PWM)
+// ---------------------------------------------------------------------
+
+#define POS9_IS_TIM4_CH3   	//Pin bears Channel3 of Timer4
+	// here Pos.9 = M1 PWM (OUT)
+
+
+// ============================================================================
+// CONNECTOR POSITION 10  -  Optionally usable as :
+//    GPIO or I2C1 SDA or TIMER4 Ch.4
+//      ( it's exclusive, make sure you have ONE single define uncommented )
+// ============================================================================
+
+// Pos.10:  Uncomment ONE of following lines if needed
+
+// -------------------------------------------------
+//    Simple GPIO Usage on External Connector pos. 10
+// -------------------------------------------------
 // #define POS10_IS_GPIO_IN	// Pin used as input     
 // #define POS10_IS_GPIO_IN_PU	// Pin used as input with weak pull-up 
 // #define POS10_IS_GPIO_IN_PD	// Pin used as input with weak pull-down
 // #define POS10_IS_GPIO_OUT	// Pin used as regular CMOS ouput
 // #define POS10_IS_GPIO_OUT_OD  // Pin used as open-drain output
 
+
+// ---------------------------------------------------------------------
+//    I2C1 SDA Usage on External Connector pos. 10
+// ---------------------------------------------------------------------
+// #define POS10_IS_I2C1_SDA 	//defined means Position 10 bears I2C1 SD
+   //  !!!! If used, make sure you specify the SPEED required        !!!
+   //  !!!!   at top of this file       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// ---------------------------------------------------------------------
+//    TIMER4 Usage on External Connector pos.10  (typ. for PWM)
+// ---------------------------------------------------------------------
+
+#define POS10_IS_TIM4_CH4   	//Pin bears Channel4 of Timer4
+	// here Pos.10 = M2 PWM (OUT)
 
 
 // ============================================================================

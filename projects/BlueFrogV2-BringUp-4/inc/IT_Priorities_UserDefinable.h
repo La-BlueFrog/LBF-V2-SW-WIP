@@ -28,6 +28,7 @@
 
 
 
+
 /* ---------------  Interrupt Priorities for NVIC  ---------------------- */
 
 /*  
@@ -56,7 +57,15 @@
 #define	__EXTI15_10_IRQn_PRIO	0xA	
 
 
-
+#define __TIM2_IRQn_PRIO	0xA
+#define __TIM3_IRQn_PRIO	0xA
+#define __TIM4_IRQn_PRIO	0xA
+#define __TIM5_IRQn_PRIO	0xA
+#define __TIM6_IRQn_PRIO	0xA
+#define __TIM7_IRQn_PRIO	0xA
+#define __TIM9_IRQn_PRIO	0xA
+#define __TIM10_IRQn_PRIO	0xA
+#define __TIM11_IRQn_PRIO	0xA
 
 
 #endif  /*__IT_PRIO_USERDEFINABLE_H */

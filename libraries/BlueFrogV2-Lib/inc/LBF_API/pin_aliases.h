@@ -137,19 +137,16 @@
 #define	UART3_PORT	GPIOC
 
 /*  ==== DATA FLASH (excl SPI)   ======================================== */
-
 // PB7 = nCS
 #define FLASH_CS_PIN	GPIO_PIN_7
 #define FLASH_CS_PORT	GPIOB
 
 /*  ==== BTLE (excl UART)       ======================================== */
-
 // PC9 = BT_RST (active high)
 #define BT_RST_PIN	GPIO_PIN_9
 #define BT_RST_PORT	GPIOC
 
 /*  ==== LSM6DS3 ACCEL/GYRO     ======================================== */
-
 // PB15 = INT1_ACC_GYR, PC6 = INT2_ACC_GYR
 #define INT1_ACC_GYR_PIN	GPIO_PIN_15
 #define INT1_ACC_GYR_PORT	GPIOB
@@ -157,31 +154,36 @@
 #define INT2_ACC_GYR_PORT	GPIOC
 
 /*  ==== LIS3MDL MAGNETO        ======================================== */
-
 // PB13 = DRDY_MAG, PB14 = IRQ_MAG
-#define DRDY_MAG_PIN	GPIO_PIN_13
+//#define DRDY_MAG_PIN	GPIO_PIN_13
 #define IRQ_MAG_PIN	GPIO_PIN_14
-#define MAG_PORT	GPIOB
+#define IRQ_MAG_PORT	GPIOB
+
+/*  ==== VL6180X ALS/PROXIMITY/DISTANCE        ========================= */
+// PA0(WKUP1) = IRQ_ALS_PROX
+#define IRQ_ALS_PROX_PIN	GPIO_PIN_0
+#define IRQ_ALS_PROX_PORT	GPIOA
+
+/*  ==== LPS25H PRESSURE/TEMP SENSOR           ========================= */
+// PB12 = IRQ_PRESS
+#define IRQ_PRESS_PIN	GPIO_PIN_12
+#define IRQ_PRESS_PORT	GPIOB
 
 /*  ==== BATTERY                 ======================================== */
-
 // PC1 = BATT_ADC_MEAS, PC7 = BATT_MEAS_EN
 #define BATT_ADC_MEAS_PIN	GPIO_PIN_1
 #define BATT_MEAS_EN_PIN	GPIO_PIN_7
 #define BATT_PORT		GPIOC
 
+
 /*  ==== OLED (excl SPI)         ======================================== */
-
-
 // PC4 - OLED_RS, STM32 output
+// PC5, OLED_NCS, STM32 output
+// PB1 - OLED_RESET, STM32 output
 #define	OLED_RS_PIN		GPIO_PIN_4
 #define OLED_RS_PORT		GPIOC
-
-// PC5, OLED_NCS, STM32 output
 #define	OLED_CS_PIN		GPIO_PIN_5
 #define OLED_CS_PORT		GPIOC
-
-// PB1 - OLED_RESET, STM32 output
 #define	OLED_RESET_PIN		GPIO_PIN_1
 #define OLED_RESET_PORT		GPIOB
 
