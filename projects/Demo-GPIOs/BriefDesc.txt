@@ -1,0 +1,34 @@
+Demo GPIOs
+==========
+
+Through settings in User_Configuration.h :
+- set position 2 as GPIO input with weak pull-down
+- set position 5 as open-drain GPIO output
+
+- set position 10 as Timer4 Ch4 output (i view of PWM generation)
+
+
+Then using La BlueFrog API:
+
+1) 1st part of demo
+
+- toggle GPIO output on position 5 every 250ms
+- constantly monitor value of GPIO inputs position 2;
+  turn LED on or off according to value read
+
+==>
+Result: when connector pins left floating: LED keeps OFF
+If connection made between position 2 and position 5:
+Then LED blinks at same rate as GPIO toggles
+
+
+If side-push switch #1 or #2 pressed --> change mode
+
+2) 2nd part of demo
+
+PWM on Timer 4 Channel 4 (available on position 10 of connector)
+set for 200ms period, 50ms high pulse
+
+Monitor status of position 10 of connector --> replicate pin status on LED
+==> LED reflects behavior of PWM
+(works ok as long as PWM is set to fairly long periods)
